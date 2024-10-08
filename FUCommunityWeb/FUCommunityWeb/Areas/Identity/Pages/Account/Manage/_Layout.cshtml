@@ -1,0 +1,83 @@
+﻿@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
+    {
+        Layout = parentLayout.ToString();
+    }
+    else
+    {
+        Layout = "/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<div class="container-fluid mt-4 profile">
+        <h1 class="title text-start">SETTING</h1> <!-- Align profile title to the left -->
+        <div class="row justify-content-center">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="sidebar">
+                    <img src="/img/avt2.jpg" class="avatar mb-3 rounded-circle" alt="Avatar">
+                    <!-- Replace with image, round it -->
+                    <h4 class="username mb-1">Nguyen Van A</h4> <!-- Smaller username -->
+                    <p class="points">Points of week: <span>100</span></p>
+                    <!-- Smaller points text, closer to username -->
+                    <div class="d-flex mb-3">
+                        <button class="btn btn-changeavt">Change Avatar</button>
+                        <button class="btn btn-editprofile" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+                    </div>
+                    <ul class="list-group">
+                        <partial name="_ManageNav"/>
+                    </ul>
+                </div>
+            </div>
+            <!-- My Profile Section -->
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Structure for Edit Profile -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" value="Nguyen Van A">
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" value="ahihi_nguyen">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" value="example@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phone" value="123-456-7890">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" rows="3">This is a short description about the user profile.</textarea>
+                    </div>
+                    <!-- Add more fields as necessary -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
